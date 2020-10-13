@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
     selector: 'app-root',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'ecms-client';
+    title = 'Easy Clinic Management System';
+
+    constructor(private jwtHelper:JwtHelperService){}
+
+    public isUserAuthenticated() {
+        //localStorage.removeItem("jwt");
+        let token: string = localStorage.getItem("jwt");
+        if (token && !this.jwtHelper.isTokenExpired(token)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
