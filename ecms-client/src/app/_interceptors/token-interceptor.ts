@@ -21,8 +21,7 @@ export class TokenInterceptor implements HttpInterceptor{
 
 	private getUrl(url: string): string {
 		if(url.startsWith('api')){
-			let loc = window.location
-			url = (environment.production ? loc.origin : loc.protocol + '//' + loc.hostname + ':' + environment.serverPort + '/') + url;
+			url = (environment.production ? window.location.origin : environment.server) + url;
 		}
 		return url;
 	}

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,13 +12,17 @@ import { AuthGuard } from './_guards/auth-guard';
 import { TokenInterceptor } from './_interceptors/token-interceptor';
 import { FormsModule } from '@angular/forms';
 import { FakeBackenInterceptor } from './_interceptors/fake-backend-interceptor';
+import { PatientRegistrationComponent } from './patient-registration/patient-registration.component';
+import { OutsiderGuard } from './_guards/outsider-guard';
+import { UserService } from './_services/user-service';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
         HomeComponent,
-        NavComponent
+        NavComponent,
+        PatientRegistrationComponent
     ],
     imports: [
         BrowserModule,
@@ -36,6 +40,9 @@ import { FakeBackenInterceptor } from './_interceptors/fake-backend-interceptor'
     providers: [
         JwtHelperService,
         AuthGuard,
+        OutsiderGuard,
+        UserService,
+        HttpClient,
         {	
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,

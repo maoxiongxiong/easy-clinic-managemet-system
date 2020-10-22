@@ -12,12 +12,18 @@ export class AppComponent {
     constructor(private jwtHelper:JwtHelperService){}
 
     public isUserAuthenticated() {
-        //localStorage.removeItem("jwt");
         let token: string = localStorage.getItem("jwt");
         if (token && !this.jwtHelper.isTokenExpired(token)) {
             return true;
+        } else {
+            return false;
         }
-        else {
+    }
+
+    public isRegistration(){
+        if(window.location.pathname.startsWith('/registration')){
+            return true;
+        } else {
             return false;
         }
     }

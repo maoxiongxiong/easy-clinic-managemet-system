@@ -10,6 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
     styleUrls: ['./app-login.component.scss']
 })
 export class LoginComponent implements OnInit {
+    
     invalidLogin: boolean;
     error: string;
 
@@ -24,7 +25,6 @@ export class LoginComponent implements OnInit {
 
     login(form: NgForm) {
         let credentials = JSON.stringify(form.value);
-        //console.log(credentials);
         this.http.post("api/auth/login", credentials, {
             headers: new HttpHeaders({
                 "Content-Type": "application/json"
