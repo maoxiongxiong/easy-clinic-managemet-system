@@ -10,7 +10,6 @@ export class FakeBackenInterceptor implements HttpInterceptor{
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
         const { url, method, headers, body } = request;
-
         return of(null)
             .pipe(mergeMap(handleRoute))
             .pipe(materialize())
@@ -19,7 +18,7 @@ export class FakeBackenInterceptor implements HttpInterceptor{
 
         function handleRoute() {
             switch (true) {
-                case url.endsWith('/auth/login') && method === 'POST':
+                case url.endsWith('/auth/login') && method === 'POST': {
                     let content = JSON.parse(body)
                     switch(content.userName){
                         case 'valid' : return ok({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJyb2xlIjoidXNlciIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTUxNjIzOTAyMn0.mnh70acuKGZnYKF9NvNM9POryP4FD62p9FbSXC63MtA'});
@@ -27,8 +26,26 @@ export class FakeBackenInterceptor implements HttpInterceptor{
                         default:
                             return unauthorized();
                     }
-                default:
-                    return next.handle(request);
+                }
+                case url.includes('/patients/free/') && method === 'GET': {
+                    let path = url.split('/');
+                    let name = path[path.length - 1]
+                    switch(name){
+                        case 'included' : return ok(false);
+                        case 'error' : return error();
+                        default:
+                            return ok(true)
+                    }
+                }
+                case url.endsWith('/patients/create') && method === 'POST': {
+                    let content = JSON.parse(body)
+                    switch(content.userName){
+                        case 'error' : return error();
+                        default:
+                            return ok(true);
+                    }
+                }
+                default: return next.handle(request);
             }
         }
 

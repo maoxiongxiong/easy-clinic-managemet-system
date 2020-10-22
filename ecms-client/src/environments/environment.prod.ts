@@ -1,4 +1,4 @@
 export const environment = {
-    serverPort: undefined,
+    server: undefined,
     production: true
 };
