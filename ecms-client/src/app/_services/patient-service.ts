@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
-export class UserService{
+export class PatientService{
 
 	private headerJson:HttpHeaders;
 
@@ -15,10 +15,6 @@ export class UserService{
 
 	createUser(data, file = null):Observable<boolean>{
 		delete data.repassword;
-		/*let credentials = JSON.stringify(data);
-		return this.http.post<boolean>('/api/patients/create', credentials, {
-			headers: this.headerJson
-		});*/
 		return this.http.put<boolean>('/api/patients/create', file, {params : data});
 	}
 

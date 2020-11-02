@@ -22,6 +22,7 @@ export class FakeBackenInterceptor implements HttpInterceptor{
                     let content = JSON.parse(body)
                     switch(content.userName){
                         case 'valid' : return ok({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJyb2xlIjoidXNlciIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTUxNjIzOTAyMn0.mnh70acuKGZnYKF9NvNM9POryP4FD62p9FbSXC63MtA'});
+                        case 'admin' : return ok({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxMjM0NDMyMTAiLCJyb2xlIjoiYWRtaW4iLCJuYW1lIjoiTWlsYW4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.GxQYLEr0DpUQgt0f1gzEWPIuM_ccdyE4c2L3XVCCNC4'});
                         case 'error' : return error();
                         default:
                             return unauthorized();

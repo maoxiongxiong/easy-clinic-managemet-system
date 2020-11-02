@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UserService } from '../_services/user-service';
+import { PatientService } from '../_services/patient-service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ export class PatientRegistrationComponent implements OnInit {
 	error: string = undefined;
 	successfullRegistration: boolean = false;
 
-    constructor(private userService: UserService, private router: Router) { }
+    constructor(private userService: PatientService, private router: Router) { }
 
     ngOnInit(): void {
     }

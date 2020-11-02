@@ -5,7 +5,13 @@
             <ul>
                 <li><a routerLink=""><h5><i class="fa fa-id-card-o"></i> Settings</h5></a></li>
             </ul>
-        </li> 
+        </li>
+        <li *ngIf="jwtService.userIsAdmin()">
+            <h3><i class="fa fa-user main-icons"></i> Admin</h3>
+            <ul>
+                <li><a routerLink=""><h5><i class="fa fa-id-card-o"></i> Settings</h5></a></li>
+            </ul>
+        </li>
 	</ul>
 	<div id="home" ><a routerLink=""><h2><i class="fa fa-home"></i></h2></a></div>
     <div id="infos"><a id="logout" (click)="logout()"><h2><i class="fa fa-sign-out" aria-hidden="true"></i></h2></a></div>

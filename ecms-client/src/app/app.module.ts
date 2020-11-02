@@ -14,7 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { FakeBackenInterceptor } from './_interceptors/fake-backend-interceptor';
 import { PatientRegistrationComponent } from './patient-registration/patient-registration.component';
 import { OutsiderGuard } from './_guards/outsider-guard';
-import { UserService } from './_services/user-service';
+import { PatientService } from './_services/patient-service';
+import { JWTService } from './_services/jwt-service';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { UserService } from './_services/user-service';
         JwtHelperService,
         AuthGuard,
         OutsiderGuard,
-        UserService,
+        PatientService,
+        JWTService,
         HttpClient,
         {	
             provide: HTTP_INTERCEPTORS,

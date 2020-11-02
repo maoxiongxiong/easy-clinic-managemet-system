@@ -51,8 +51,8 @@
             <br/>
             <label for="medicalReport" class="sr-only">Medical Report</label>
             <div *ngIf="!fileIsSelected(file.files)" class="alert alert-warning">Medical report is not choosen</div>
-			<input #file type="file" accept=".zip,.rar,.7zip" id="file" name="file" placeholder="Upload Medical Report" class="hide">
-            <a class="btn btn-lg btn-info text-white btn-block" (click)="file.click()">Upload Medical Report</a>
+			<input #file type="file" accept=".zip,.rar,.7zip" id="file" name="file" placeholder="Browse Medical Report" class="hide">
+            <a class="btn btn-lg btn-info text-white btn-block" (click)="file.click()">Browse Medical Report</a>
             <br/>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
         </div>
