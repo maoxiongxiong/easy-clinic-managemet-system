@@ -9,7 +9,7 @@ export class FakeBackenInterceptor implements HttpInterceptor{
     constructor(){}
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-        const { url, method, headers, body } = request;
+        const { url, method, headers, body, params } = request;
         return of(null)
             .pipe(mergeMap(handleRoute))
             .pipe(materialize())
@@ -37,9 +37,8 @@ export class FakeBackenInterceptor implements HttpInterceptor{
                             return ok(true)
                     }
                 }
-                case url.endsWith('/patients/create') && method === 'POST': {
-                    let content = JSON.parse(body)
-                    switch(content.userName){
+                case url.endsWith('/patients/create') && method === 'PUT': {
+                    switch(params.get('userName')){
                         case 'error' : return error();
                         default:
                             return ok(true);

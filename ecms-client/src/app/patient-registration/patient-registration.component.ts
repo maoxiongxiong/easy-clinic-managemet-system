@@ -43,14 +43,30 @@ export class PatientRegistrationComponent implements OnInit {
 		}
 	}
 
-    registUser(form: NgForm) {
+	fileIsSelected(files): boolean {
+		if(files.length > 0){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+    registUser(form: NgForm, files) {
 		let data=form.value;
 		if(!this.passwordToShort(data.password) && !this.passwordNotMatch(data.password, data.repassword) && this.emailIsValid(data.email)){
 			this.userService.nameIsFree(data.userName).subscribe((response)=>{
 				if(!response){
 					this.uniqueName = false;
 				}else{
-					let createdUser= this.userService.createUser(data);
+					let createdUser = undefined
+					if(this.fileIsSelected(files)){
+						let template= <File>files[0];
+						let formData= new FormData();
+						let file = formData.append('file', template, template.name)
+						createdUser = this.userService.createUser(data, file);
+					} else {
+						createdUser = this.userService.createUser(data);
+					}
 					createdUser.subscribe((response) => {
 						this.successfullRegistration = response;
 					}, err => {
@@ -67,6 +83,4 @@ export class PatientRegistrationComponent implements OnInit {
 		this.error = undefined;
 		this.successfullRegistration = false;
 	}
-
-
 }
