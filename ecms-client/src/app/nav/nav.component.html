@@ -6,7 +6,7 @@
                 <li><a routerLink=""><h5><i class="fa fa-id-card-o"></i> Settings</h5></a></li>
             </ul>
         </li>
-        <li *ngIf="jwtService.userIsAdmin()">
+        <li *ngIf="userIsAdmin()">
             <h3><i class="fa fa-user main-icons"></i> Admin</h3>
             <ul>
                 <li><a routerLink=""><h5><i class="fa fa-id-card-o"></i> Settings</h5></a></li>

@@ -16,4 +16,8 @@ export class NavComponent implements OnInit {
     logout(): void {
         this.jwtService.logout();
     }
+
+    userIsAdmin(): boolean {
+        return this.jwtService.userIsAdmin();
+    }
 }
