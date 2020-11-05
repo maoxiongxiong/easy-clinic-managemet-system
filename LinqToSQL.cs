@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Web;
 
@@ -7,73 +8,159 @@ namespace ECMSWeb
 {
     public class LinqToSQL
     {
-        public static void insert2Db()
+        /// <summary>
+        /// select admin by username for login
+        /// </summary>
+        public static void selectByusername()
+        {
+
+        }
+
+        /// <summary>
+        /// insert to admin
+        /// </summary>
+        public static void insert2admin()
         {
             string connectString = System.Configuration.ConfigurationManager.ConnectionStrings["LinqToSQLDBConnectionString"].ToString();
 
-            LinqToSQLDataContext db = new LinqToSQLDataContext(connectString);
+            System_adminDataContext db = new System_adminDataContext(connectString);
+
+            //Create new user
+            SYSTEM_ADMINS newADM = new SYSTEM_ADMINS();
+            newADM.id = "001";
+            newADM.username = "John";
+            newADM.native_name = "Jo";
+            newADM.password = "test123";
+
+            //add newADM to database 
+            db.SYSTEM_ADMINS.InsertOnSubmit(newADM);
+
+            db.SubmitChanges();
+
+        }
+
+        /// <summary>
+        /// update admin
+        /// </summary>
+        public static void updateadmin()
+        {
+            string connectString = System.Configuration.ConfigurationManager.ConnectionStrings["LinqToSQLDBConnectionString"].ToString();
+
+            System_adminDataContext db = new System_adminDataContext(connectString);
+
+            //Get Employee for update
+            SYSTEM_ADMINS newADM = db.SYSTEM_ADMINS.FirstOrDefault(e => e.username.Equals("John"));
+
+            newADM.id = "001";
+            newADM.username = "Johnasen";
+            newADM.native_name = "Joh";
+            newADM.password = "test123";
+
+            //Save changes to Database.
+            db.SubmitChanges();
+
+            //Get Updated DOCTORS            
+            SYSTEM_ADMINS updatedADM = db.SYSTEM_ADMINS.FirstOrDefault(e => e.username.Equals("john"));
+
+
+        }
+
+        /// <summary>
+        /// delete admin
+        /// </summary>
+        public static void deleteadmin()
+        {
+            string connectString = System.Configuration.ConfigurationManager.ConnectionStrings["LinqToSQLDBConnectionString"].ToString();
+
+            System_adminDataContext db = new System_adminDataContext(connectString);
+
+            //Get ADM to Delete
+            SYSTEM_ADMINS deleteADM = db.SYSTEM_ADMINS.FirstOrDefault(e => e.username.Equals("John"));
+
+            //Delete ADM
+            db.SYSTEM_ADMINS.DeleteOnSubmit(deleteADM);
+
+            //Save changes to Database.
+            db.SubmitChanges();
+        }
+
+        /// <summary>
+        /// insert to doctors
+        /// </summary>
+        public static void insert2doctors()
+        {
+            string connectString = System.Configuration.ConfigurationManager.ConnectionStrings["LinqToSQLDBConnectionString"].ToString();
+
+            System_adminDataContext db = new System_adminDataContext(connectString);
 
             //Create new Doctor
-            Doctors newDoctors = new Doctors();
-            newDoctors.id = "001";
-            newDoctors.user_name = "John";
-            newDoctors.native_name = "Doc.John";
-            newDoctors.password = "123";
-            newDoctors.gender = "M";
-            newDoctors.age = 23;
-            newDoctors.star_year_of_work = "2014";
+            DOCTORS newDOCTORS = new DOCTORS();
+            newDOCTORS.id = "001";
+            newDOCTORS.user_name = "John";
+            newDOCTORS.native_name = "Doc.John";
+            newDOCTORS.password = "123";
+            newDOCTORS.gender = "M";
+            newDOCTORS.age = 23;
+            newDOCTORS.start_year_of_work = 2014;
 
-            //Add new Doctors to database
-            db.Doctors.InsertOnSubmit(newDoctors);
+            //Add new DOCTORS to database
+            db.DOCTORS.InsertOnSubmit(newDOCTORS);
 
             //Save changes to Database.
             db.SubmitChanges();
 
             //Get new Inserted Employee            
-            Doctors insertedEmployee = db.Doctors.FirstOrDefault(e => e.Name.Equals("Michael"));
+            DOCTORS insertedEmployee = db.DOCTORS.FirstOrDefault(e => e.user_name.Equals("Michael"));
 
         }
     
-        public static void updateTable()
+        /// <summary>
+        /// update Doctors
+        /// </summary>
+        public static void updateDoc()
         {
             string connectString = System.Configuration.ConfigurationManager.ConnectionStrings["LinqToSQLDBConnectionString"].ToString();
 
-            LinqToSQLDataContext db = new LinqToSQLDataContext(connectString);
+            System_adminDataContext db = new System_adminDataContext(connectString);
 
             //Get Employee for update
-            Doctors newDoctors = db.Doctors.FirstOrDefault(e => e.Name.Equals("John"));
+            DOCTORS newDOCTORS = db.DOCTORS.FirstOrDefault(e => e.user_name.Equals("John"));
 
-            newDoctors.id = "001";
-            newDoctors.user_name = "John";
-            newDoctors.native_name = "Doc.John";
-            newDoctors.password = "123";
-            newDoctors.gender = "M";
-            newDoctors.age = 23;
-            newDoctors.star_year_of_work = "2014";
+            newDOCTORS.id = "001";
+            newDOCTORS.user_name = "John";
+            newDOCTORS.native_name = "Doc.John";
+            newDOCTORS.password = "123";
+            newDOCTORS.gender = "M";
+            newDOCTORS.age = 23;
+            newDOCTORS.start_year_of_work = 2014;
 
             //Save changes to Database.
             db.SubmitChanges();
 
-            //Get Updated Doctors            
-            Doctors updatedDoctors = db.Doctors.FirstOrDefault(e => e.Name.Equals("George Michael"));
+            //Get Updated DOCTORS            
+            DOCTORS updatedDOCTORS = db.DOCTORS.FirstOrDefault(e => e.user_name.Equals("George Michael"));
 
         }
 
-        public static void deleteTable()
+        /// <summary>
+        /// delete Doctors
+        /// </summary>
+        public static void deleteDoc()
         {
             string connectString = System.Configuration.ConfigurationManager.ConnectionStrings["LinqToSQLDBConnectionString"].ToString();
 
-            LinqToSQLDataContext db = newLinqToSQLDataContext(connectString);
+            System_adminDataContext db = new System_adminDataContext(connectString);
 
-            //Get Doctors to Delete
-            Doctors deleteDoctor = db.Doctors.FirstOrDefault(e => e.Name.Equals("John"));
+            //Get DOCTORS to Delete
+            DOCTORS deleteDoctor = db.DOCTORS.FirstOrDefault(e => e.user_name.Equals("John"));
 
-            //Delete Doctors
-            db.Doctors.DeleteOnSubmit(deleteDoctor);
+            //Delete DOCTORS
+            db.DOCTORS.DeleteOnSubmit(deleteDoctor);
 
             //Save changes to Database.
             db.SubmitChanges();
 
         }
+        
     }
 }
